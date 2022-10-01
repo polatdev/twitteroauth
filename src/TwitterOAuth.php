@@ -26,7 +26,7 @@ use Composer\CaBundle\CaBundle;
  */
 class TwitterOAuth extends Config
 {
-    private const API_HOST = 'https://api.twitter.com';
+    public static string $API_HOST = 'https://api.twitter.com';
     private const UPLOAD_HOST = 'https://upload.twitter.com';
 
     /** @var Response details about the result of the last request */
@@ -172,7 +172,7 @@ class TwitterOAuth extends Config
         $this->resetLastResponse();
         $this->response->setApiPath($path);
         $query = http_build_query($parameters);
-        return sprintf('%s/%s?%s', self::API_HOST, $path, $query);
+        return sprintf('%s/%s?%s', self::$API_HOST, $path, $query);
     }
 
     /**
@@ -189,7 +189,7 @@ class TwitterOAuth extends Config
         $response = [];
         $this->resetLastResponse();
         $this->response->setApiPath($path);
-        $url = sprintf('%s/%s', self::API_HOST, $path);
+        $url = sprintf('%s/%s', self::$API_HOST, $path);
         $result = $this->oAuthRequest($url, 'POST', $parameters);
 
         if ($this->getLastHttpCode() != 200) {
@@ -215,7 +215,7 @@ class TwitterOAuth extends Config
         $method = 'POST';
         $this->resetLastResponse();
         $this->response->setApiPath($path);
-        $url = sprintf('%s/%s', self::API_HOST, $path);
+        $url = sprintf('%s/%s', self::$API_HOST, $path);
         $request = Request::fromConsumerAndToken(
             $this->consumer,
             $this->token,
@@ -247,7 +247,7 @@ class TwitterOAuth extends Config
      */
     public function get(string $path, array $parameters = [])
     {
-        return $this->http('GET', self::API_HOST, $path, $parameters, false);
+        return $this->http('GET', self::$API_HOST, $path, $parameters, false);
     }
 
     /**
@@ -265,7 +265,7 @@ class TwitterOAuth extends Config
         bool   $json = false
     )
     {
-        return $this->http('POST', self::API_HOST, $path, $parameters, $json);
+        return $this->http('POST', self::$API_HOST, $path, $parameters, $json);
     }
 
     /**
@@ -278,7 +278,7 @@ class TwitterOAuth extends Config
      */
     public function delete(string $path, array $parameters = [])
     {
-        return $this->http('DELETE', self::API_HOST, $path, $parameters, false);
+        return $this->http('DELETE', self::$API_HOST, $path, $parameters, false);
     }
 
     /**
@@ -296,7 +296,7 @@ class TwitterOAuth extends Config
         bool   $json = false
     )
     {
-        return $this->http('PUT', self::API_HOST, $path, $parameters, $json);
+        return $this->http('PUT', self::$API_HOST, $path, $parameters, $json);
     }
 
     /**
