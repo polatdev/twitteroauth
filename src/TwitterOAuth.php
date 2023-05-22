@@ -476,6 +476,7 @@ class TwitterOAuth extends Config
         return [
             '1.1' => '.json',
             '2' => '',
+            'graphql' => ''
         ][$this->apiVersion];
     }
 
