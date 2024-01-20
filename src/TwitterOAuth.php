@@ -10,13 +10,7 @@ declare(strict_types=1);
 
 namespace Abraham\TwitterOAuth;
 
-use Abraham\TwitterOAuth\{
-    Consumer,
-    HmacSha1,
-    Response,
-    Token,
-    Util\JsonDecoder,
-};
+use Abraham\TwitterOAuth\{Util\JsonDecoder,};
 use Composer\CaBundle\CaBundle;
 
 /**
@@ -476,7 +470,8 @@ class TwitterOAuth extends Config
         return [
             '1.1' => '.json',
             '2' => '',
-            'graphql' => ''
+            'graphql' => '',
+            'caps' => null,
         ][$this->apiVersion];
     }
 
@@ -523,13 +518,22 @@ class TwitterOAuth extends Config
      */
     protected function apiUrl(string $host, string $path)
     {
-        return sprintf(
-            '%s/%s/%s%s',
-            $host,
-            $this->apiVersion,
-            $path,
-            $this->extension(),
-        );
+        if ($this->apiVersion === "caps") {
+            return sprintf(
+                '%s/%s%s',
+                $host,
+                $path,
+                $this->extension(),
+            );
+        } else {
+            return sprintf(
+                '%s/%s/%s%s',
+                $host,
+                $this->apiVersion,
+                $path,
+                $this->extension(),
+            );
+        }
     }
 
     /**

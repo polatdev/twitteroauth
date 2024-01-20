@@ -12,7 +12,7 @@ namespace Abraham\TwitterOAuth;
 class Config
 {
     // Update extension function when updating this list.
-    private const SUPPORTED_VERSIONS = ['1.1', '2', 'graphql'];
+    private const SUPPORTED_VERSIONS = ['1.1', '2', 'graphql', 'caps'];
 
     /** @var int How long to wait for a response from the API */
     protected $timeout = 5;
