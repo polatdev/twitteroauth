@@ -699,8 +699,13 @@ class TwitterOAuth extends Config
 
         // Extra Headers Check
         if (!empty($this->headers)) {
-            foreach ($this->headers as $key => $value)
-                $options[CURLOPT_HTTPHEADER][] = $key . ': ' . $value;
+            foreach ($this->headers as $key => $value) {
+                if (empty($value)) {
+                    $options[CURLOPT_HTTPHEADER][] = $key . ';' . $value;
+                } else {
+                    $options[CURLOPT_HTTPHEADER][] = $key . ': ' . $value;
+                }
+            }
         }
 
         switch ($method) {
